@@ -22,7 +22,7 @@ namespace GS_Sample.Controllers
         }
 
         [HttpGet]
-        [Route("id:guid")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> GetCar([FromRoute] Guid id)
         {
             var car = await dbContext.Cars.FindAsync(id);
@@ -52,7 +52,7 @@ namespace GS_Sample.Controllers
         }
 
         [HttpPut]
-        [Route("id:guid")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> UpdateCar([FromRoute] Guid id, UpdateCarRequest updateCarRequest)
         {
             var car = await dbContext.Cars.FindAsync(id);
@@ -69,7 +69,7 @@ namespace GS_Sample.Controllers
         }
 
         [HttpDelete]
-        [Route("id:guid")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var car = await dbContext.Cars.FindAsync(id);
@@ -77,6 +77,7 @@ namespace GS_Sample.Controllers
             {
                 dbContext.Remove(car);
                 await dbContext.SaveChangesAsync();
+                return Ok(car);
             }
             return NotFound();
         }
